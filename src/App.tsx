@@ -7,12 +7,21 @@ import detailedRecords from "./assets/images/icon-detailed-records.svg";
 import fullyCustomizable from "./assets/images/icon-fully-customizable.svg";
 import boostBackgroundMobile from "./assets/images/bg-boost-mobile.svg";
 import Footer from "./components/Footer";
+import PoppinsWoff2 from "./assets/fonts/Poppins-Regular.woff2";
+import PoppinsWoff from "./assets/fonts/Poppins-Regular.woff";
 
 const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: "Poppins";
+    src: url(${PoppinsWoff2}) format("woff2"),
+      url(${PoppinsWoff}) format("woff");
+  }
+
   *, *::before, *::after {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: "Poppins";
   }
 `;
 
@@ -22,6 +31,7 @@ const Hero = styled.div`
 
 const HeroImage = styled.img`
   width: 150%;
+  margin-left: 1.5rem;
   margin-bottom: 2.25rem;
 `;
 
@@ -57,19 +67,57 @@ const HeroButton = styled.button`
   color: white;
   border: none;
   padding: 14px 40px 12px 40px;
-  margin: 0 auto 6.25rem auto;
+  margin: 0 auto 168px auto;
 `;
 
-const ShortenerContainer = styled.div`
-  background: url(${urlShortenerBackground});
+const ShortenerContainer = styled.form`
+  background: url(${urlShortenerBackground}) #3a3054;
+  background-repeat: no-repeat;
+  background-position: top right;
   padding: 1.5rem;
   margin: 1.5rem;
   margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  position: relative;
+  top: -80px;
+`;
+
+const ShortenButton = styled.button`
+  background: #2bd0d0;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 27px;
+  color: #ffffff;
+  height: 48px;
+  margin-top: 1rem;
+`;
+
+const ShortenerInput = styled.input`
+  border-radius: 5px;
+  border: none;
+  padding: 0 1rem;
+  height: 48px;
+  outline: none;
+  &::placeholder {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 36px;
+    letter-spacing: 0.12px;
+    color: #34313d;
+    mix-blend-mode: normal;
+    opacity: 0.5;
+  }
 `;
 
 const Urls = styled.ul`
   margin: 0 1.5rem;
   margin-bottom: 5rem;
+  position: relative;
+  top: -80px;
 `;
 
 const DetailsHeader = styled.h2`
@@ -96,10 +144,6 @@ const DetailsContainer = styled.div`
   padding: 0 2rem 2.5rem 2rem;
   background: white;
   border-radius: 5px;
-`;
-
-const LastDetailsContainer = styled(DetailsContainer)`
-  margin-bottom: 80px;
 `;
 
 const DetailsSubHeader = styled.h3`
@@ -140,12 +184,12 @@ const DetailsDivider = styled.div`
 
 const Main = styled.main`
   background: #f2f2f2;
-  /* padding: 0 1.5rem; */
 `;
 
 const BottomCTAContainer = styled.div`
   padding: 90px 36px;
   background: url(${boostBackgroundMobile}) #3a3054;
+  background-size: cover;
 `;
 
 const BottomCTAButton = styled(HeroButton)`
@@ -164,6 +208,8 @@ const BottomCTAHeader = styled.h4`
 
 const Details = styled.div`
   margin: 0 1.5rem;
+  position: relative;
+  top: -80px;
 `;
 
 function App() {
@@ -185,10 +231,13 @@ function App() {
       </Hero>
       <Main>
         <ShortenerContainer>
-          <input placeholder="Shorten a link here..." />
-          <button>Shorten it!</button>
+          <ShortenerInput placeholder="Shorten a link here..." />
+          <ShortenButton>Shorten it!</ShortenButton>
         </ShortenerContainer>
-        <Urls></Urls>
+        <Urls>
+          <li>Url</li>
+          <li>Url</li>
+        </Urls>
         <Details>
           <DetailsHeader>Advanced Statistics</DetailsHeader>
           <DetailsCopy>
@@ -219,7 +268,7 @@ function App() {
             </DetailsSubCopy>
           </DetailsContainer>
           <DetailsDivider />
-          <LastDetailsContainer>
+          <DetailsContainer>
             <DetailsImageContainer>
               <img src={fullyCustomizable} alt="" />
             </DetailsImageContainer>
@@ -228,7 +277,7 @@ function App() {
               Improve brand awareness and content discoverability through
               customizable links, supercharging audience engagement.
             </DetailsSubCopy>
-          </LastDetailsContainer>
+          </DetailsContainer>
         </Details>
         <BottomCTAContainer>
           <BottomCTAHeader>Boost your links today</BottomCTAHeader>

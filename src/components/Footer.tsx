@@ -1,4 +1,4 @@
-import logo from "../assets/images/logo.svg";
+import logo from "../assets/images/logo-white.svg";
 import styled from "styled-components";
 import facebookIcon from "../assets/images/icon-facebook.svg";
 import twitterIcon from "../assets/images/icon-twitter.svg";
@@ -12,6 +12,8 @@ const FooterEl = styled.footer`
 `;
 
 const FooterLogo = styled.img`
+  display: block;
+  margin: 0 auto;
   margin-bottom: 49.33px;
 `;
 
