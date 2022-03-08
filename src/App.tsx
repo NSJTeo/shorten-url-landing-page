@@ -241,6 +241,7 @@ function App() {
   const [error, setError] = useState<string>('');
   const [urls, setUrls] = useState<shortLink[]>([]);
   const [copied, setCopied] = useState<string>('');
+
   // any
   const handleChange = (e: any) => {
     setQuery(e.target.value);
@@ -253,11 +254,14 @@ function App() {
       setQuery('');
       return;
     }
+    const secureQuery = query.slice(0, 4) === 'http' ? '' : 'https://';
     axios
-      .get(`https://api.shrtco.de/v2/shorten?url=${query.trim()}`)
+      .get(`https://api.shrtco.de/v2/shorten?url=${secureQuery}${query.trim()}`)
       .then(({ data }) => {
-        const shortUrl = { url: data.result.full_short_link3, name: query };
-        console.log(shortUrl);
+        const shortUrl = {
+          url: data.result.full_short_link3,
+          name: data.result.original_link,
+        };
         const newUrls = [...urls, shortUrl];
         setUrls(newUrls);
         setQuery('');
@@ -301,10 +305,10 @@ function App() {
           <ShortenButton onClick={handleClick}>Shorten it!</ShortenButton>
         </ShortenerContainer>
         <Urls>
-          {urls.map((url) => {
+          {urls.map((url, i) => {
             return (
               <ShortUrlBox
-                key={url.url}
+                key={i}
                 url={url}
                 setCopied={setCopied}
                 copied={url.url === copied}
