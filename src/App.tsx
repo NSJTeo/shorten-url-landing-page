@@ -98,12 +98,18 @@ const ShortenButton = styled.button`
   margin-top: 1rem;
 `;
 
-const ShortenerInput = styled.input`
+interface ShortenerInputProps {
+  error: string;
+}
+
+const ShortenerInput = styled.input<ShortenerInputProps>`
   border-radius: 5px;
-  border: none;
   padding: 0 1rem;
   height: 48px;
   outline: none;
+  border: ${({ error }) => {
+    return error ? '3px solid #F46363' : 'none';
+  }};
   &::placeholder {
     font-weight: 500;
     font-size: 16px;
@@ -214,6 +220,16 @@ const Details = styled.div`
   top: -80px;
 `;
 
+const Error = styled.p`
+  font-style: italic;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.0818182px;
+  color: #f46363;
+  margin-top: 4px;
+`;
+
 type shortLink = {
   url: string;
   name: string;
@@ -223,7 +239,6 @@ function App() {
   const [query, setQuery] = useState<string>('');
   const [error, setError] = useState<string>('');
   const [urls, setUrls] = useState<shortLink[]>([]);
-  console.log(urls);
   // any
   const handleChange = (e: any) => {
     setQuery(e.target.value);
@@ -244,6 +259,9 @@ function App() {
         const newUrls = [...urls, shortUrl];
         setUrls(newUrls);
         setQuery('');
+        if (error) {
+          setError('');
+        }
       })
       .catch(() => {
         setError('Please add a valid link');
@@ -275,8 +293,9 @@ function App() {
             placeholder="Shorten a link here..."
             value={query}
             onChange={handleChange}
+            error={error}
           />
-          {error && <p>{error}</p>}
+          {error && <Error>{error}</Error>}
           <ShortenButton onClick={handleClick}>Shorten it!</ShortenButton>
         </ShortenerContainer>
         <Urls>
