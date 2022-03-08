@@ -1,14 +1,16 @@
-import styled, { createGlobalStyle } from "styled-components";
-import Header from "./components/Header";
-import heroImage from "./assets/images/illustration-working.svg";
-import urlShortenerBackground from "./assets/images/bg-shorten-mobile.svg";
-import brandRecognition from "./assets/images/icon-brand-recognition.svg";
-import detailedRecords from "./assets/images/icon-detailed-records.svg";
-import fullyCustomizable from "./assets/images/icon-fully-customizable.svg";
-import boostBackgroundMobile from "./assets/images/bg-boost-mobile.svg";
-import Footer from "./components/Footer";
-import PoppinsWoff2 from "./assets/fonts/Poppins-Regular.woff2";
-import PoppinsWoff from "./assets/fonts/Poppins-Regular.woff";
+import styled, { createGlobalStyle } from 'styled-components';
+import Header from './components/Header';
+import heroImage from './assets/images/illustration-working.svg';
+import urlShortenerBackground from './assets/images/bg-shorten-mobile.svg';
+import brandRecognition from './assets/images/icon-brand-recognition.svg';
+import detailedRecords from './assets/images/icon-detailed-records.svg';
+import fullyCustomizable from './assets/images/icon-fully-customizable.svg';
+import boostBackgroundMobile from './assets/images/bg-boost-mobile.svg';
+import Footer from './components/Footer';
+import PoppinsWoff2 from './assets/fonts/Poppins-Regular.woff2';
+import PoppinsWoff from './assets/fonts/Poppins-Regular.woff';
+import axios from 'axios';
+import { useState } from 'react';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -30,7 +32,7 @@ const Hero = styled.div`
 `;
 
 const HeroImage = styled.img`
-  width: 150%;
+  width: 135%;
   margin-left: 1.5rem;
   margin-bottom: 2.25rem;
 `;
@@ -212,7 +214,43 @@ const Details = styled.div`
   top: -80px;
 `;
 
+type shortLink = {
+  url: string;
+  name: string;
+};
+
 function App() {
+  const [query, setQuery] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [urls, setUrls] = useState<shortLink[]>([]);
+  console.log(urls);
+  // any
+  const handleChange = (e: any) => {
+    setQuery(e.target.value);
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    e.preventDefault();
+    if (!query.trim()) {
+      setError('Please add a link');
+      setQuery('');
+      return;
+    }
+    axios
+      .get(`https://api.shrtco.de/v2/shorten?url=${query.trim()}`)
+      .then(({ data }) => {
+        const shortUrl = { url: data.result.full_short_link3, name: query };
+        console.log(shortUrl);
+        const newUrls = [...urls, shortUrl];
+        setUrls(newUrls);
+        setQuery('');
+      })
+      .catch(() => {
+        setError('Please add a valid link');
+        setQuery('');
+      });
+  };
+
   return (
     <>
       <GlobalStyles />
@@ -231,10 +269,25 @@ function App() {
       </Hero>
       <Main>
         <ShortenerContainer>
-          <ShortenerInput placeholder="Shorten a link here..." />
-          <ShortenButton>Shorten it!</ShortenButton>
+          <ShortenerInput
+            type="text"
+            name="query"
+            placeholder="Shorten a link here..."
+            value={query}
+            onChange={handleChange}
+          />
+          {error && <p>{error}</p>}
+          <ShortenButton onClick={handleClick}>Shorten it!</ShortenButton>
         </ShortenerContainer>
         <Urls>
+          {urls.map((url) => {
+            return (
+              <li>
+                <p>{url.url}</p>
+                <p>{url.name}</p>
+              </li>
+            );
+          })}
           <li>Url</li>
           <li>Url</li>
         </Urls>
