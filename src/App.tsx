@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import PoppinsWoff2 from './assets/fonts/Poppins-Regular.woff2';
 import PoppinsWoff from './assets/fonts/Poppins-Regular.woff';
 import axios from 'axios';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ShortUrlBox from './components/ShortUrlBox';
 
 const GlobalStyles = createGlobalStyle`
@@ -71,6 +71,10 @@ const HeroButton = styled.button`
   border: none;
   padding: 14px 40px 12px 40px;
   margin: 0 auto 168px auto;
+  cursor: pointer;
+  &:active {
+    background: #9ae3e3;
+  }
 `;
 
 const ShortenerContainer = styled.form`
@@ -97,6 +101,10 @@ const ShortenButton = styled.button`
   color: #ffffff;
   height: 48px;
   margin-top: 1rem;
+  cursor: pointer;
+  &:active {
+    background: #9ae3e3;
+  }
 `;
 
 interface ShortenerInputProps {
@@ -242,9 +250,17 @@ function App() {
   const [urls, setUrls] = useState<shortLink[]>([]);
   const [copied, setCopied] = useState<string>('');
 
+  const shortenerRef = useRef<HTMLFormElement>(null);
+
   // any
   const handleChange = (e: any) => {
     setQuery(e.target.value);
+  };
+
+  const scrollToShortener = (): void => {
+    shortenerRef.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
   };
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -289,10 +305,10 @@ function App() {
           Build your brand's recognition and get detailed insights on how your
           links are performing.
         </HeroSubtext>
-        <HeroButton>Get Started</HeroButton>
+        <HeroButton onClick={scrollToShortener}>Get Started</HeroButton>
       </Hero>
       <Main>
-        <ShortenerContainer>
+        <ShortenerContainer ref={shortenerRef}>
           <ShortenerInput
             type="text"
             name="query"
@@ -359,7 +375,9 @@ function App() {
         </Details>
         <BottomCTAContainer>
           <BottomCTAHeader>Boost your links today</BottomCTAHeader>
-          <BottomCTAButton>Get Started</BottomCTAButton>
+          <BottomCTAButton onClick={scrollToShortener}>
+            Get Started
+          </BottomCTAButton>
         </BottomCTAContainer>
       </Main>
       <Footer />

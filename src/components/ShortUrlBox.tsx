@@ -60,6 +60,9 @@ const CopyShortUrlButton = styled.button<CopyShortUrlButtonProps>`
   padding-top: 9px;
   padding-bottom: 7px;
   cursor: pointer;
+  &:active {
+    background: #9ae3e3;
+  }
 `;
 
 export default function ShortUrlBox({ url, setCopied, copied }: Props) {
