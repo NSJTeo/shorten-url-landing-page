@@ -1,6 +1,6 @@
-import logo from "../assets/images/logo.svg";
-import hamburgerIcon from "../assets/images/icon-hamburger.svg";
-import styled from "styled-components";
+import logo from '../assets/images/logo.svg';
+import hamburgerIcon from '../assets/images/icon-hamburger.svg';
+import styled from 'styled-components';
 
 const HeaderEl = styled.header`
   display: flex;
@@ -8,11 +8,23 @@ const HeaderEl = styled.header`
   padding: 2.5rem 1.5rem 1.5rem 1.5rem;
 `;
 
-export default function Header() {
+const ModalButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+type Props = {
+  setModalOpen: Function;
+};
+
+export default function Header({ setModalOpen }: Props) {
   return (
     <HeaderEl>
       <img src={logo} alt="shortly logo" />
-      <img src={hamburgerIcon} alt="hamburger icon" />
+      <ModalButton onClick={() => setModalOpen(true)}>
+        <img src={hamburgerIcon} alt="hamburger icon" />
+      </ModalButton>
     </HeaderEl>
   );
 }

@@ -12,6 +12,7 @@ import PoppinsWoff from './assets/fonts/Poppins-Regular.woff';
 import axios from 'axios';
 import { useRef, useState } from 'react';
 import ShortUrlBox from './components/ShortUrlBox';
+import GetStartedModal from './components/GetStartedModal';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -249,6 +250,7 @@ function App() {
   const [error, setError] = useState<string>('');
   const [urls, setUrls] = useState<shortLink[]>([]);
   const [copied, setCopied] = useState<string>('');
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const shortenerRef = useRef<HTMLFormElement>(null);
 
@@ -294,7 +296,8 @@ function App() {
   return (
     <>
       <GlobalStyles />
-      <Header />
+      <Header setModalOpen={setModalOpen} />
+      {modalOpen && <GetStartedModal setModalOpen={setModalOpen} />}
       <Hero>
         <HeroImage
           src={heroImage}
