@@ -308,7 +308,14 @@ function App() {
           Build your brand's recognition and get detailed insights on how your
           links are performing.
         </HeroSubtext>
-        <HeroButton onClick={scrollToShortener}>Get Started</HeroButton>
+        <HeroButton
+          onClick={() => {
+            setError('');
+            scrollToShortener();
+          }}
+        >
+          Get Started
+        </HeroButton>
       </Hero>
       <Main>
         <ShortenerContainer ref={shortenerRef}>
@@ -378,7 +385,12 @@ function App() {
         </Details>
         <BottomCTAContainer>
           <BottomCTAHeader>Boost your links today</BottomCTAHeader>
-          <BottomCTAButton onClick={scrollToShortener}>
+          <BottomCTAButton
+            onClick={() => {
+              setError('');
+              scrollToShortener();
+            }}
+          >
             Get Started
           </BottomCTAButton>
         </BottomCTAContainer>
