@@ -4,9 +4,14 @@ import styled from 'styled-components';
 import breakpoints from '../config/breakpoints';
 
 const HeaderEl = styled.header`
+  margin: 0 auto;
+  max-width: 1440px;
   display: flex;
   justify-content: space-between;
   padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  @media (min-width: ${breakpoints.desktop}) {
+    padding: 48px 165px 78px 167px;
+  }
 `;
 
 const HeaderLogo = styled.img`
@@ -56,6 +61,7 @@ const HeaderLinkLogin = styled(HeaderLink)`
 `;
 
 const SignUpButton = styled.button`
+  display: none;
   background: #2bd0d0;
   border-radius: 28px;
   font-weight: bold;
@@ -67,6 +73,9 @@ const SignUpButton = styled.button`
   padding: 9px 23px 8px 24px;
   &:active {
     background: #9ae3e3;
+  }
+  @media (min-width: ${breakpoints.desktop}) {
+    display: block;
   }
 `;
 

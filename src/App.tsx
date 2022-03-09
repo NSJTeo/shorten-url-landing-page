@@ -2,6 +2,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 import Header from './components/Header';
 import heroImage from './assets/images/illustration-working.svg';
 import urlShortenerBackground from './assets/images/bg-shorten-mobile.svg';
+import urlShortenerBackgroundDesktop from './assets/images/bg-shorten-desktop.svg';
 import brandRecognition from './assets/images/icon-brand-recognition.svg';
 import detailedRecords from './assets/images/icon-detailed-records.svg';
 import fullyCustomizable from './assets/images/icon-fully-customizable.svg';
@@ -13,6 +14,7 @@ import axios from 'axios';
 import { useRef, useState } from 'react';
 import ShortUrlBox from './components/ShortUrlBox';
 import GetStartedModal from './components/GetStartedModal';
+import breakpoints from './config/breakpoints';
 
 const GlobalStyles = createGlobalStyle`
   @font-face {
@@ -31,12 +33,37 @@ const GlobalStyles = createGlobalStyle`
 
 const Hero = styled.div`
   overflow-x: hidden;
+  margin: 0 auto;
+  @media (min-width: ${breakpoints.desktop}) {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-left: 165px;
+    justify-content: flex-end;
+    margin: 0 auto;
+    max-width: 1440px;
+  }
+`;
+
+const HeroTextBox = styled.div`
+  @media (min-width: ${breakpoints.desktop}) {
+    margin-right: 100px;
+    margin-top: 139px;
+    width: 46%;
+  }
 `;
 
 const HeroImage = styled.img`
   width: 135%;
   margin-left: 1.5rem;
   margin-bottom: 2.25rem;
+  @media (min-width: ${breakpoints.desktop}) {
+    object-fit: cover;
+    object-position: left;
+    margin: 0;
+    width: 30%;
+    margin-bottom: 152px;
+    flex-grow: 1;
+  }
 `;
 
 const HeroText = styled.p`
@@ -48,6 +75,14 @@ const HeroText = styled.p`
   color: #34313d;
   margin: 0 1.5rem;
   margin-bottom: 1rem;
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 80px;
+    line-height: 90px;
+    letter-spacing: -2px;
+    margin: 0;
+    margin-bottom: 5px;
+    text-align: start;
+  }
 `;
 
 const HeroSubtext = styled.p`
@@ -59,6 +94,14 @@ const HeroSubtext = styled.p`
   color: #9e9aa8;
   margin: 0 1.5rem;
   margin-bottom: 2rem;
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 22px;
+    line-height: 36px;
+    letter-spacing: 0.15px;
+    margin: 0;
+    margin-bottom: 38px;
+    text-align: start;
+  }
 `;
 
 const HeroButton = styled.button`
@@ -76,6 +119,19 @@ const HeroButton = styled.button`
   &:active {
     background: #9ae3e3;
   }
+  @media (min-width: ${breakpoints.desktop}) {
+    margin: 0;
+    margin-bottom: 222px;
+  }
+`;
+
+const ShortenerContainerOuter = styled.div`
+  padding: 0 24px;
+  @media (min-width: ${breakpoints.desktop}) {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 165px;
+  }
 `;
 
 const ShortenerContainer = styled.form`
@@ -83,13 +139,17 @@ const ShortenerContainer = styled.form`
   background-repeat: no-repeat;
   background-position: top right;
   padding: 1.5rem;
-  margin: 1.5rem;
-  margin-top: 0;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   position: relative;
   top: -80px;
+  @media (min-width: ${breakpoints.desktop}) {
+    background: url(${urlShortenerBackgroundDesktop}) #3a3054;
+    flex-direction: row;
+    align-items: flex-start;
+  }
 `;
 
 const ShortenButton = styled.button`
@@ -100,9 +160,16 @@ const ShortenButton = styled.button`
   font-size: 18px;
   line-height: 27px;
   color: #ffffff;
-  height: 48px;
+  padding: 11px 0 10px 0;
   margin-top: 1rem;
   cursor: pointer;
+  @media (min-width: ${breakpoints.desktop}) {
+    margin: 0;
+    margin-left: 24px;
+    font-size: 20px;
+    line-height: 30px;
+    padding: 18px 40px 16px 41px;
+  }
   &:active {
     background: #9ae3e3;
   }
@@ -112,22 +179,43 @@ interface ShortenerInputProps {
   error: string;
 }
 
+const ShortenerInputErrorContainer = styled.div`
+  flex-grow: 1;
+`;
+
 const ShortenerInput = styled.input<ShortenerInputProps>`
-  border-radius: 5px;
-  padding: 0 1rem;
+  width: 100%;
+  font-size: 16px;
   height: 48px;
+  line-height: 36px;
+  padding-left: 16px;
+  border-radius: 5px;
   outline: none;
+  letter-spacing: 0.12px;
   border: ${({ error }) => {
     return error ? '3px solid #F46363' : 'none';
   }};
+  @media (min-width: ${breakpoints.desktop}) {
+    padding-left: 32px;
+    font-size: 20px;
+    letter-spacing: 0.15px;
+    height: 64px;
+  }
   &::placeholder {
     font-weight: 500;
     font-size: 16px;
     line-height: 36px;
     letter-spacing: 0.12px;
-    color: #34313d;
+    color: ${({ error }) => {
+      return error ? '#F46363' : '#34313d';
+    }};
     mix-blend-mode: normal;
     opacity: 0.5;
+    @media (min-width: ${breakpoints.desktop}) {
+      font-size: 20px;
+      line-height: 36px;
+      letter-spacing: 0.15px;
+    }
   }
 `;
 
@@ -303,33 +391,39 @@ function App() {
           src={heroImage}
           alt="illustration of person working at desk"
         />
-        <HeroText>More Than Just Shorter Links</HeroText>
-        <HeroSubtext>
-          Build your brand's recognition and get detailed insights on how your
-          links are performing.
-        </HeroSubtext>
-        <HeroButton
-          onClick={() => {
-            setError('');
-            scrollToShortener();
-          }}
-        >
-          Get Started
-        </HeroButton>
+        <HeroTextBox>
+          <HeroText>More Than Just Shorter Links</HeroText>
+          <HeroSubtext>
+            Build your brand's recognition and get detailed insights on how your
+            links are performing.
+          </HeroSubtext>
+          <HeroButton
+            onClick={() => {
+              setError('');
+              scrollToShortener();
+            }}
+          >
+            Get Started
+          </HeroButton>
+        </HeroTextBox>
       </Hero>
       <Main>
-        <ShortenerContainer ref={shortenerRef}>
-          <ShortenerInput
-            type="text"
-            name="query"
-            placeholder="Shorten a link here..."
-            value={query}
-            onChange={handleChange}
-            error={error}
-          />
-          {error && <Error>{error}</Error>}
-          <ShortenButton onClick={handleClick}>Shorten it!</ShortenButton>
-        </ShortenerContainer>
+        <ShortenerContainerOuter>
+          <ShortenerContainer ref={shortenerRef}>
+            <ShortenerInputErrorContainer>
+              <ShortenerInput
+                type="text"
+                name="query"
+                placeholder="Shorten a link here..."
+                value={query}
+                onChange={handleChange}
+                error={error}
+              />
+              {error && <Error>{error}</Error>}
+            </ShortenerInputErrorContainer>
+            <ShortenButton onClick={handleClick}>Shorten it!</ShortenButton>
+          </ShortenerContainer>
+        </ShortenerContainerOuter>
         <Urls>
           {urls.map((url, i) => {
             return (

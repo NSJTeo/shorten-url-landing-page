@@ -1,5 +1,5 @@
 const breakpoints = {
-  desktop: '768px',
+  desktop: '1330px',
 };
 
 export default breakpoints;
