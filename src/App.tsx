@@ -224,6 +224,9 @@ const Urls = styled.ul`
   margin-bottom: 5rem;
   position: relative;
   top: -80px;
+  @media (min-width: ${breakpoints.desktop}) {
+    margin-bottom: 120px;
+  }
 `;
 
 const DetailsHeader = styled.h2`
@@ -326,6 +329,12 @@ const Error = styled.p`
   letter-spacing: 0.0818182px;
   color: #f46363;
   margin-top: 4px;
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0.109091px;
+    margin-top: 8px;
+  }
 `;
 
 export type shortLink = {

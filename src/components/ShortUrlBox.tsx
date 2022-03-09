@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { shortLink } from '../App';
+import breakpoints from '../config/breakpoints';
 
 type Props = {
   url: shortLink;
@@ -15,7 +16,14 @@ const ShortUrlContainer = styled.li`
   padding-top: 6px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
+  margin: 0 auto 24px auto;
+  max-width: 1440px;
+  @media (min-width: ${breakpoints.desktop}) {
+    padding: 0 165px;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
 `;
 
 const ShortUrlName = styled.p`
@@ -27,6 +35,12 @@ const ShortUrlName = styled.p`
   padding-bottom: 6px;
   padding-left: 1rem;
   border-bottom: 1px solid rgba(158, 154, 168, 0.25);
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 20px;
+    letter-spacing: 0.15px;
+    border: none;
+    padding-left: 24px;
+  }
 `;
 
 const ShortUrl = styled.p`
@@ -38,6 +52,10 @@ const ShortUrl = styled.p`
   line-height: 36px;
   letter-spacing: 0.12px;
   color: #2bd0d0;
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 20px;
+    letter-spacing: 0.15px;
+  }
 `;
 
 interface CopyShortUrlButtonProps {
@@ -63,6 +81,20 @@ const CopyShortUrlButton = styled.button<CopyShortUrlButtonProps>`
   &:active {
     background: #9ae3e3;
   }
+  @media (min-width: ${breakpoints.desktop}) {
+    width: 103px;
+    margin: 0 24px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+`;
+
+const CopyUrlContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: ${breakpoints.desktop}) {
+    flex-direction: row;
+  }
 `;
 
 export default function ShortUrlBox({ url, setCopied, copied }: Props) {
@@ -73,10 +105,12 @@ export default function ShortUrlBox({ url, setCopied, copied }: Props) {
   return (
     <ShortUrlContainer>
       <ShortUrlName>{url.name}</ShortUrlName>
-      <ShortUrl>{url.url}</ShortUrl>
-      <CopyShortUrlButton type="button" onClick={handleClick} copied={copied}>
-        {copied ? 'Copied!' : 'Copy'}
-      </CopyShortUrlButton>
+      <CopyUrlContainer>
+        <ShortUrl>{url.url}</ShortUrl>
+        <CopyShortUrlButton type="button" onClick={handleClick} copied={copied}>
+          {copied ? 'Copied!' : 'Copy'}
+        </CopyShortUrlButton>
+      </CopyUrlContainer>
     </ShortUrlContainer>
   );
 }
