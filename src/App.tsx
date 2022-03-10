@@ -7,6 +7,7 @@ import brandRecognition from './assets/images/icon-brand-recognition.svg';
 import detailedRecords from './assets/images/icon-detailed-records.svg';
 import fullyCustomizable from './assets/images/icon-fully-customizable.svg';
 import boostBackgroundMobile from './assets/images/bg-boost-mobile.svg';
+import boostBackgroundDesktop from './assets/images/bg-boost-desktop.svg';
 import Footer from './components/Footer';
 import PoppinsWoff2 from './assets/fonts/Poppins-Regular.woff2';
 import PoppinsWoff from './assets/fonts/Poppins-Regular.woff';
@@ -354,10 +355,18 @@ const BottomCTAContainer = styled.div`
   padding: 90px 36px;
   background: url(${boostBackgroundMobile}) #3a3054;
   background-size: cover;
+  @media (min-width: ${breakpoints.desktop}) {
+    padding: 57px 0;
+    background: url(${boostBackgroundDesktop}) #3a3054;
+  }
 `;
 
 const BottomCTAButton = styled(HeroButton)`
   margin: 0 auto;
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 20px;
+    line-height: 30px;
+  }
 `;
 
 const BottomCTAHeader = styled.h4`
@@ -368,6 +377,11 @@ const BottomCTAHeader = styled.h4`
   line-height: 48px;
   letter-spacing: -0.7px;
   color: #ffffff;
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 40px;
+    letter-spacing: -1px;
+    margin-bottom: 32px;
+  }
 `;
 
 const Details = styled.div`
