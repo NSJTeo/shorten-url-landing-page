@@ -149,6 +149,7 @@ const ShortenerContainer = styled.form`
     background: url(${urlShortenerBackgroundDesktop}) #3a3054;
     flex-direction: row;
     align-items: flex-start;
+    top: -56px;
   }
 `;
 
@@ -225,6 +226,7 @@ const Urls = styled.ul`
   position: relative;
   top: -80px;
   @media (min-width: ${breakpoints.desktop}) {
+    margin: 0;
     margin-bottom: 120px;
   }
 `;
@@ -236,6 +238,13 @@ const DetailsHeader = styled.h2`
   text-align: center;
   letter-spacing: -0.7px;
   color: #34313d;
+  margin-bottom: 1rem;
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -1px;
+    margin-bottom: 18px;
+  }
 `;
 
 const DetailsCopy = styled.p`
@@ -245,7 +254,25 @@ const DetailsCopy = styled.p`
   text-align: center;
   letter-spacing: 0.109091px;
   color: #9e9aa8;
+  margin: 0 auto;
   margin-bottom: 92px;
+  @media (min-width: ${breakpoints.desktop}) {
+    font-size: 18px;
+    line-height: 32px;
+    letter-spacing: 0.122727px;
+    width: 540px;
+    margin-bottom: 100px;
+  }
+`;
+
+const SubDetails = styled.div`
+  max-width: 1440px;
+  margin: 0 auto;
+  @media (min-width: ${breakpoints.desktop}) {
+    display: flex;
+    padding: 0 165px;
+    align-items: flex-start;
+  }
 `;
 
 const DetailsContainer = styled.div`
@@ -253,6 +280,18 @@ const DetailsContainer = styled.div`
   padding: 0 2rem 2.5rem 2rem;
   background: white;
   border-radius: 5px;
+  @media (min-width: ${breakpoints.desktop}) {
+    padding: 0 32px 41px 32px;
+    max-width: 350px;
+  }
+`;
+
+const DetailsContainerRecords = styled(DetailsContainer)`
+  margin-top: 44px;
+`;
+
+const DetailsContainerCustomizable = styled(DetailsContainer)`
+  margin-top: 88px;
 `;
 
 const DetailsSubHeader = styled.h3`
@@ -261,6 +300,10 @@ const DetailsSubHeader = styled.h3`
   line-height: 33px;
   text-align: center;
   color: #34313d;
+  @media (min-width: ${breakpoints.desktop}) {
+    text-align: start;
+    margin-bottom: 12px;
+  }
 `;
 
 const DetailsSubCopy = styled.p`
@@ -269,6 +312,9 @@ const DetailsSubCopy = styled.p`
   line-height: 26px;
   text-align: center;
   color: #9e9aa8;
+  @media (min-width: ${breakpoints.desktop}) {
+    text-align: start;
+  }
 `;
 
 const DetailsImageContainer = styled.div`
@@ -281,7 +327,11 @@ const DetailsImageContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  top: -33px;
+  top: -44px;
+  @media (min-width: ${breakpoints.desktop}) {
+    margin: 0;
+    margin-bottom: -11px;
+  }
 `;
 
 const DetailsDivider = styled.div`
@@ -289,6 +339,11 @@ const DetailsDivider = styled.div`
   height: 3rem;
   background: #2bd0d0;
   margin: 0 auto 2rem auto;
+  @media (min-width: ${breakpoints.desktop}) {
+    height: 8px;
+    width: 30px;
+    margin-top: 152px;
+  }
 `;
 
 const Main = styled.main`
@@ -319,6 +374,10 @@ const Details = styled.div`
   margin: 0 1.5rem;
   position: relative;
   top: -80px;
+  @media (min-width: ${breakpoints.desktop}) {
+    margin: 0 auto;
+    margin-bottom: 40px;
+  }
 `;
 
 const Error = styled.p`
@@ -451,40 +510,42 @@ function App() {
             Track how your links are performing across the web with our advanced
             statistics dashboard.
           </DetailsCopy>
-          <DetailsContainer>
-            <DetailsImageContainer>
-              <img src={brandRecognition} alt="" />
-            </DetailsImageContainer>
-            <DetailsSubHeader>Brand Recognition</DetailsSubHeader>
-            <DetailsSubCopy>
-              Boost your brand recognition with each click. Generic links don't
-              mean a thing. Branded links help instil confidence in your
-              content.
-            </DetailsSubCopy>
-          </DetailsContainer>
-          <DetailsDivider />
-          <DetailsContainer>
-            <DetailsImageContainer>
-              <img src={detailedRecords} alt="" />
-            </DetailsImageContainer>
-            <DetailsSubHeader>Detailed Records</DetailsSubHeader>
-            <DetailsSubCopy>
-              Gain insight into who is clicking your links. Knowing when and
-              where people engage with your content helps inform better
-              decisions.
-            </DetailsSubCopy>
-          </DetailsContainer>
-          <DetailsDivider />
-          <DetailsContainer>
-            <DetailsImageContainer>
-              <img src={fullyCustomizable} alt="" />
-            </DetailsImageContainer>
-            <DetailsSubHeader>Fully Customizable</DetailsSubHeader>
-            <DetailsSubCopy>
-              Improve brand awareness and content discoverability through
-              customizable links, supercharging audience engagement.
-            </DetailsSubCopy>
-          </DetailsContainer>
+          <SubDetails>
+            <DetailsContainer>
+              <DetailsImageContainer>
+                <img src={brandRecognition} alt="" />
+              </DetailsImageContainer>
+              <DetailsSubHeader>Brand Recognition</DetailsSubHeader>
+              <DetailsSubCopy>
+                Boost your brand recognition with each click. Generic links
+                don't mean a thing. Branded links help instil confidence in your
+                content.
+              </DetailsSubCopy>
+            </DetailsContainer>
+            <DetailsDivider />
+            <DetailsContainerRecords>
+              <DetailsImageContainer>
+                <img src={detailedRecords} alt="" />
+              </DetailsImageContainer>
+              <DetailsSubHeader>Detailed Records</DetailsSubHeader>
+              <DetailsSubCopy>
+                Gain insight into who is clicking your links. Knowing when and
+                where people engage with your content helps inform better
+                decisions.
+              </DetailsSubCopy>
+            </DetailsContainerRecords>
+            <DetailsDivider />
+            <DetailsContainerCustomizable>
+              <DetailsImageContainer>
+                <img src={fullyCustomizable} alt="" />
+              </DetailsImageContainer>
+              <DetailsSubHeader>Fully Customizable</DetailsSubHeader>
+              <DetailsSubCopy>
+                Improve brand awareness and content discoverability through
+                customizable links, supercharging audience engagement.
+              </DetailsSubCopy>
+            </DetailsContainerCustomizable>
+          </SubDetails>
         </Details>
         <BottomCTAContainer>
           <BottomCTAHeader>Boost your links today</BottomCTAHeader>
