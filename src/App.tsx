@@ -288,11 +288,15 @@ const DetailsContainer = styled.div`
 `;
 
 const DetailsContainerRecords = styled(DetailsContainer)`
-  margin-top: 44px;
+  @media (min-width: ${breakpoints.desktop}) {
+    margin-top: 44px;
+  }
 `;
 
 const DetailsContainerCustomizable = styled(DetailsContainer)`
-  margin-top: 88px;
+  @media (min-width: ${breakpoints.desktop}) {
+    margin-top: 88px;
+  }
 `;
 
 const DetailsSubHeader = styled.h3`
