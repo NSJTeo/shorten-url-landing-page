@@ -8,6 +8,18 @@ type Props = {
   copied: boolean;
 };
 
+const ExteriorContainer = styled.div`
+  max-width: 1440px;
+  margin: 0 auto;
+  @media (min-width: ${breakpoints.desktop}) {
+    padding: 0 165px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+`;
+
 const ShortUrlContainer = styled.li`
   list-style: none;
   background: white;
@@ -17,12 +29,12 @@ const ShortUrlContainer = styled.li`
   display: flex;
   flex-direction: column;
   margin: 0 auto 24px auto;
-  max-width: 1440px;
   @media (min-width: ${breakpoints.desktop}) {
-    padding: 0 165px;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 1rem;
+    padding-top: 1rem;
   }
 `;
 
@@ -39,6 +51,7 @@ const ShortUrlName = styled.p`
     font-size: 20px;
     letter-spacing: 0.15px;
     border: none;
+    padding: 0;
     padding-left: 24px;
   }
 `;
@@ -55,6 +68,7 @@ const ShortUrl = styled.p`
   @media (min-width: ${breakpoints.desktop}) {
     font-size: 20px;
     letter-spacing: 0.15px;
+    padding: 0;
   }
 `;
 
@@ -103,14 +117,20 @@ export default function ShortUrlBox({ url, setCopied, copied }: Props) {
     setCopied(url.url);
   };
   return (
-    <ShortUrlContainer>
-      <ShortUrlName>{url.name}</ShortUrlName>
-      <CopyUrlContainer>
-        <ShortUrl>{url.url}</ShortUrl>
-        <CopyShortUrlButton type="button" onClick={handleClick} copied={copied}>
-          {copied ? 'Copied!' : 'Copy'}
-        </CopyShortUrlButton>
-      </CopyUrlContainer>
-    </ShortUrlContainer>
+    <ExteriorContainer>
+      <ShortUrlContainer>
+        <ShortUrlName>{url.name}</ShortUrlName>
+        <CopyUrlContainer>
+          <ShortUrl>{url.url}</ShortUrl>
+          <CopyShortUrlButton
+            type="button"
+            onClick={handleClick}
+            copied={copied}
+          >
+            {copied ? 'Copied!' : 'Copy'}
+          </CopyShortUrlButton>
+        </CopyUrlContainer>
+      </ShortUrlContainer>
+    </ExteriorContainer>
   );
 }

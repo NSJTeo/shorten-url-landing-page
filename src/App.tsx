@@ -151,6 +151,7 @@ const ShortenerContainer = styled.form`
     flex-direction: row;
     align-items: flex-start;
     top: -56px;
+    margin-bottom: 52px;
   }
 `;
 
