@@ -46,6 +46,7 @@ const FooterContainer = styled.div`
   align-items: center;
   @media (min-width: ${breakpoints.desktop}) {
     align-items: flex-start;
+    margin: 0;
     margin-left: 78px;
   }
 `;
@@ -63,6 +64,7 @@ const LastFooterContainer = styled(FooterContainer)`
   margin-bottom: 48px;
   @media (min-width: ${breakpoints.desktop}) {
     margin-left: 107px;
+    margin-bottom: 0;
   }
 `;
 
